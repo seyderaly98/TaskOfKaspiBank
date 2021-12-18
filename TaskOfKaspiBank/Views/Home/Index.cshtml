@@ -25,36 +25,11 @@
     <div class="block2">
         <div class="block2-in-box1" >
             <h2>Корзина</h2>
-            <table class="table table-dark">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Название</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Количество</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>15</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>15</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="order-table">
+                @{
+                    await Html.RenderPartialAsync("Partial/OrderTablePartial");
+                }
+            </div>
             <div class="block2-in-box1-footer">
                 <button type="button" class="btn btn-light">Оплатить</button>
             </div>
