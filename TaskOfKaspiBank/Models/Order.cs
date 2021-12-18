@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using TaskOfKaspiBank.Models.Data;
+using TaskOfKaspiBank.Models.Enums;
 
 namespace TaskOfKaspiBank.Models
 {
@@ -20,6 +19,11 @@ namespace TaskOfKaspiBank.Models
         /// Адрес заказа
         /// </summary>
         public OrderAddress Address { get; set; }
+
+        /// <summary>
+        /// Состояние  заказа 
+        /// </summary>
+        public OrderStatus Status { get; set; }
         
     }
 }
