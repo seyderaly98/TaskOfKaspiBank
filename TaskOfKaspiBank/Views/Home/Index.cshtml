@@ -1,40 +1,26 @@
-﻿@{
+﻿@model List<Product>
+@{
     ViewData["Title"] = "Страница магазина";
 }
 
 <div class="my-container">
     <div class="block1">
-        
-        <div class="block1-in-box">
-            <img src="~/files/images/scale_1200.png" alt="error">
-            <h5>Продукт name</h5>
-            <div class="">
-                <p>Цена: <span>400тен</span></p>
-                <p>
-                    <button><i class="fas fa-plus"></i></button>
-                    <button><i class="fas fa-minus"></i></button>
-                    <span>1</span>
-                </p>
+        @foreach (Product product in Model)
+        {
+            <div class="block1-in-box">
+                <img src="~/@product.PathImage" alt="error">
+                <h5>@product.Name</h5>
+                <div class="">
+                    <p>Цена: <span>@product.Price</span><span>Тенге</span></p>
+                    <p>
+                        <button><i class="fas fa-minus"></i></button>
+                        <button><i class="fas fa-plus"></i></button>
+                        <span>0</span>
+                    </p>
+                </div>
             </div>
-        </div>
-
-        <div class="block1-in-box">
-            <img src="~/files/images/scale_1200.png" alt="error">
-            <h5>Продукт name</h5>
-        </div>
-        <div class="block1-in-box">
-            <img src="~/files/images/scale_1200.png" alt="error">
-            <h5>Продукт name</h5>
-        </div>
-        <div class="block1-in-box">
-            <img src="~/files/images/scale_1200.png" alt="error">
-            <h5>Продукт name</h5>
-        </div>
-        <div class="block1-in-box">
-            <img src="~/files/images/scale_1200.png" alt="error">
-            <h5>Продукт name</h5>
-        </div>
-
+        }
+        
     </div>
     <div class="block2">
         <div class="block2-in-box1" >

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TaskOfKaspiBank.Models;
 using TaskOfKaspiBank.Models.Data;
@@ -31,9 +32,18 @@ namespace TaskOfKaspiBank.Controllers
         
         #region Actions
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            try
+            {
+                var products = await _db.Products.ToListAsync();
+                return View(products);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         

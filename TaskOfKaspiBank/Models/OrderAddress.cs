@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace TaskOfKaspiBank.Models.Data
+namespace TaskOfKaspiBank.Models
 {
-    public abstract class OrderAddress
+    public  class OrderAddress
     {
         public int Id { get; set; }
         /// <summary>

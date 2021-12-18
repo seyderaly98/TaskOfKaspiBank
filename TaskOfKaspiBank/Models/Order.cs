@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TaskOfKaspiBank.Models.Data;
 
-namespace TaskOfKaspiBank.Models.Data
+namespace TaskOfKaspiBank.Models
 {
-    public abstract class Order
+    public class Order
     {
         public int Id { get;  set; }
         /// <summary>

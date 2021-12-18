@@ -2,12 +2,12 @@
 
 namespace TaskOfKaspiBank.Models
 {
-    public abstract class Product
+    public class Product
     {
         /// <summary>
         /// Идентификатор 
         /// </summary>
-        public int Id { get;  set; }
+        public int Id { get;   set; }
         /// <summary>
         /// Наименование продукта 
         /// </summary>
@@ -15,15 +15,17 @@ namespace TaskOfKaspiBank.Models
         /// <summary>
         /// Цена
         /// </summary>
-        public string Price { get; set; }
+        public decimal Price { get; set; }
         /// <summary>
         /// Оставшееся количество продукта  
         /// </summary>
-        public string RemainingProductQuantity { get; set; } //TODO: если останется время добавить ограничение заказа по количеству товара
+        public int RemainingProductQuantity { get; set; } //TODO: если останется время добавить ограничение заказа по количеству товара
         /// <summary>
         /// Путь к изображению продукта
         /// </summary>
         public string PathImage { get; set; }
-        
+
+      
+
     }
 }
