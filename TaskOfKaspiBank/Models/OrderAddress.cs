@@ -2,9 +2,9 @@
 
 namespace TaskOfKaspiBank.Models
 {
-    public  class OrderAddress
+    public class OrderAddress
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         /// <summary>
         /// Адрес  
         /// </summary>
@@ -13,5 +13,6 @@ namespace TaskOfKaspiBank.Models
         /// Номер карты
         /// </summary>
         public short CarNumber { get; set; }
+
     }
 }

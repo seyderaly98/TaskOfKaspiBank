@@ -6,24 +6,39 @@ namespace TaskOfKaspiBank.Models
 {
     public class Order
     {
-        public int Id { get;  set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         /// <summary>
         /// Номер заказа
         /// </summary>
         public Guid Number { get; } = new Guid();
         /// <summary>
-        /// Список продуктов 
+        /// Информация о продуктах
         /// </summary>
-        public List<Product> Products { get; set; }
+        public virtual List<InformationOrderedProduct> ProductsInformation { get; set; }
+        public string AddressId { get; set; }
         /// <summary>
         /// Адрес заказа
         /// </summary>
-        public OrderAddress Address { get; set; }
-
+        public virtual OrderAddress Address { get; set; }
         /// <summary>
         /// Состояние  заказа 
         /// </summary>
         public OrderStatus Status { get; set; }
+
+        #region Конструкторы
+
+        public Order(){}
+
+        public Order(string productId)
+        {
+            Status = OrderStatus.Forming;
+            ProductsInformation = new List<InformationOrderedProduct>()
+            {
+                new InformationOrderedProduct(orderId:this.Id,productId:productId)
+            };
+        }
+
+        #endregion
         
     }
 }

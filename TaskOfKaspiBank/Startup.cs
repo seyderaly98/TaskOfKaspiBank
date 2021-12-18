@@ -26,7 +26,7 @@ namespace TaskOfKaspiBank
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<TaskOfKaspiBankContext>(options => options.UseNpgsql(connection,o => o.SetPostgresVersion(9, 6)));
+            services.AddDbContext<TaskOfKaspiBankContext>(options => options.UseNpgsql(connection,o => o.SetPostgresVersion(9, 6)).UseLazyLoadingProxies());
             services.AddControllersWithViews();
         }
 

@@ -14,11 +14,11 @@
                         <img src="~/@product.PathImage" alt="error">
                         <h5>@product.Name</h5>
                         <div class="">
-                            <p>Цена: <span>@product.Price</span><span>Тенге</span></p>
+                            <p>Цена: <span>@product.Price</span> <span>Тенге</span></p>
                             <p>
                                 <button><i class="fas fa-minus"></i></button>
-                                <button><i class="fas fa-plus"></i></button>
-                                <span>0</span>
+                                <button onclick="AddShoppingCart('@product.Id')"><i class="fas fa-plus"></i></button>
+                                <span id="block1-in-box-product-count-@product.Id">@product.GetQuantityProductCart()</span>
                             </p>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="block2-in-box1-footer">
                  <button type="button" class="btn btn-light" onclick="buttonPay(1)">Назад</button>
-                <button type="button" class="btn btn-light">Оформить</button>
+                 <button type="button" class="btn btn-light">Оформить</button>
             </div>
         </div>
     </div>
@@ -65,6 +65,7 @@
 @section Scripts
 {
     <script>
+    
         function buttonPay(value)
         {           
             if (value === 2)
@@ -78,5 +79,27 @@
                 document.getElementById('placeOrder').style.display = 'none';
             }
         }
+        
+        function AddShoppingCart(productId)
+        {
+            $.ajax(
+                {
+                  url: '@Url.Action("AddProductCart", "Home")',
+                  type: 'POST',
+                  data: {productId},
+                  success: function (data) 
+                  {
+                      if (data === true){
+                          document.getElementById('block1-in-box-product-count-' + productId).innerText++;
+                      }
+                      if (data === false){
+                          
+                      }
+                      else{
+                          
+                      }
+                }})                           
+        }
+        
     </script>
 }
