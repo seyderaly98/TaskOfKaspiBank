@@ -13,6 +13,9 @@ namespace TaskOfKaspiBank.Models
         /// Номер карты
         /// </summary>
         public short CarNumber { get; set; }
-
+        /// <summary>
+        /// Дата cоздания
+        /// </summary>
+        public DateTime DateCreation { get; } = DateTime.Now;
     }
 }

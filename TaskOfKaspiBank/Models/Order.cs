@@ -24,6 +24,10 @@ namespace TaskOfKaspiBank.Models
         /// Состояние  заказа 
         /// </summary>
         public OrderStatus Status { get; set; }
+        /// <summary>
+        /// Дата cоздания
+        /// </summary>
+        public DateTime DateCreation { get; } = DateTime.Now;
 
         #region Конструкторы
 

@@ -33,13 +33,11 @@
     <div class="block2">
         <div class="block2-in-box1" id="basket">
             <h2>Корзина</h2>
-            <div class="order-table">
+            <div class="order-table" id="order-table">
                 @{
-                    await Html.RenderPartialAsync("Partial/OrderTablePartial");
+                    var order = (Order)ViewBag.Order;
+                    await Html.RenderPartialAsync("Partial/OrderTablePartial",order);
                 }
-            </div>
-            <div class="block2-in-box1-footer">
-                <button type="button" class="btn btn-light" onclick="buttonPay(2)">Оплатить</button>
             </div>
         </div>
         <div class="block2-in-box2" id="placeOrder" style="display: none">
@@ -83,14 +81,39 @@
         function AddProductCart(productId)
         {
             $.ajax(
+            {
+              url: '@Url.Action("AddProductCart", "Home")',
+              type: 'POST',
+              data: {productId},
+              success: function (data) 
+              {
+                  if (data === true){
+                      document.getElementById('block1-in-box-product-count-' + productId).innerText++;
+                      updateOrderBasket();
+                  }
+                  else if (data === false){
+                      alert('Перезагрузите страницу и повторите заново')
+                  }
+                  else{
+                      alert('Ошибка') // TODO: Допишу если время останется 
+                  }
+            }})                           
+        }
+        
+        function RemoveAdProductCart(productId)
+        {
+            if (document.getElementById('block1-in-box-product-count-' + productId).innerText > 0)
+            {
+                $.ajax(
                 {
-                  url: '@Url.Action("AddProductCart", "Home")',
+                  url: '@Url.Action("RemoveProductCart", "Home")',
                   type: 'POST',
                   data: {productId},
                   success: function (data) 
                   {
                       if (data === true){
-                          document.getElementById('block1-in-box-product-count-' + productId).innerText++;
+                          document.getElementById('block1-in-box-product-count-' + productId).innerText--;
+                          updateOrderBasket();
                       }
                       else if (data === false){
                           alert('Перезагрузите страницу и повторите заново')
@@ -98,30 +121,25 @@
                       else{
                           alert('Ошибка') // TODO: Допишу если время останется 
                       }
-                }})                           
-        }
-        function RemoveAdProductCart(productId)
-        {
-            if (document.getElementById('block1-in-box-product-count-' + productId).innerText > 0)
-            {
-                $.ajax(
-                    {
-                      url: '@Url.Action("RemoveProductCart", "Home")',
-                      type: 'POST',
-                      data: {productId},
-                      success: function (data) 
-                      {
-                          if (data === true){
-                              document.getElementById('block1-in-box-product-count-' + productId).innerText--;
-                          }
-                          else if (data === false){
-                              alert('Перезагрузите страницу и повторите заново')
-                          }
-                          else{
-                              alert('Ошибка') // TODO: Допишу если время останется 
-                          }
-                    }})         
+                }})         
             }                  
+        }
+        
+        function updateOrderBasket()
+        {
+            $.ajax(
+            {
+              url: '@Url.Action("UpdateOrderBasket", "Home")',
+              type: 'GET',
+              success: function (data) 
+              {
+                  if (data.status === 500){
+                      alert('Ошибка') // TODO: Допишу если время останется
+                  }
+                  else {
+                      document.getElementById('order-table').innerHTML = data;
+                  }
+            }})  
         }
         
     </script>

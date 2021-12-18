@@ -39,6 +39,8 @@ namespace TaskOfKaspiBank.Controllers
             try
             {
                 var products = await _db.Products.Include(p => p.InformationOrderedProduct).ToListAsync();
+                if (products != null)
+                    ViewBag.Order = await _db.Orders.FirstOrDefaultAsync(o => o.Status == OrderStatus.Forming);
                 return View(products);
             }
             catch (Exception e)
@@ -126,6 +128,29 @@ namespace TaskOfKaspiBank.Controllers
 #endif
                 return StatusCode(500);
             }
+        }
+        
+        /// <summary>
+        /// Обновить корзину заказов 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> UpdateOrderBasket()
+        {
+            try
+            {
+                var order = await _db.Orders.FirstOrDefaultAsync(o => o.Status == OrderStatus.Forming);
+                return PartialView("Partial/OrderTablePartial", order);
+            }
+            catch (Exception ex)
+            {
+#if(DEBUG)
+                //TODO: Логирование 
+                Console.WriteLine(ex);
+#endif
+                return Json(new {status = 500, message = ex.Message});
+            }
+            
         }
 
         #endregion

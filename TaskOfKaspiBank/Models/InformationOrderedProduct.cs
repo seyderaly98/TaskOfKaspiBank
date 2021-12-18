@@ -29,6 +29,11 @@ namespace TaskOfKaspiBank.Models
         /// Заказ
         /// </summary>
         public virtual Order Order { get; set; }
+        
+        /// <summary>
+        /// Дата cоздания
+        /// </summary>
+        public DateTime DateCreation { get; } = DateTime.Now;
 
         #region Конструкторы
 

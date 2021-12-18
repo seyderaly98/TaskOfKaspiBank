@@ -29,6 +29,11 @@ namespace TaskOfKaspiBank.Models
         /// Путь к изображению продукта
         /// </summary>
         public string PathImage { get; set; }
+
+        /// <summary>
+        /// Дата cоздания
+        /// </summary>
+        public DateTime DateCreation { get; } = DateTime.Now;
         
         public virtual List<InformationOrderedProduct> InformationOrderedProduct { get; set; }
 
