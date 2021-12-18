@@ -31,7 +31,7 @@
         }
     </div>
     <div class="block2">
-        <div class="block2-in-box1" >
+        <div class="block2-in-box1" id="basket">
             <h2>Корзина</h2>
             <div class="order-table">
                 @{
@@ -39,10 +39,10 @@
                 }
             </div>
             <div class="block2-in-box1-footer">
-                <button type="button" class="btn btn-light">Оплатить</button>
+                <button type="button" class="btn btn-light" onclick="buttonPay(2)">Оплатить</button>
             </div>
         </div>
-        <div class="block2-in-box2" style="display: none">
+        <div class="block2-in-box2" id="placeOrder" style="display: none">
             <h2>Оформить заказ</h2>
             <div>
                 <div class="mb-3 ">
@@ -55,9 +55,28 @@
                 </div>
             </div>
             <div class="block2-in-box1-footer">
+                 <button type="button" class="btn btn-light" onclick="buttonPay(1)">Назад</button>
                 <button type="button" class="btn btn-light">Оформить</button>
             </div>
         </div>
     </div>
 </div>
 
+@section Scripts
+{
+    <script>
+        function buttonPay(value)
+        {           
+            if (value === 2)
+            {
+                document.getElementById('basket').style.display = 'none';
+                document.getElementById('placeOrder').style.display = 'block';
+            }
+            else
+            {
+                document.getElementById('basket').style.display = 'block';
+                document.getElementById('placeOrder').style.display = 'none';
+            }
+        }
+    </script>
+}
