@@ -113,10 +113,10 @@ namespace TaskOfKaspiBank.Controllers
                 var order = await _db.Orders.FirstOrDefaultAsync(o => o.Status == OrderStatus.Forming);
                 var productInfo = order?.ProductsInformation.FirstOrDefault(p => p.ProductId == productId);
                 if (productInfo == null) return Json(false);
-                productInfo.Quantity--;
-                if (productInfo.Quantity == 0)
-                    _db.InformationOrderedProducts.Remove(productInfo);
-                return Json(false);
+                if (productInfo.Quantity > 0) productInfo.Quantity--;
+                if (productInfo.Quantity == 0) _db.InformationOrderedProducts.Remove(productInfo);
+                await _db.SaveChangesAsync();
+                return Json(true);
             }
             catch (Exception e)
             {
