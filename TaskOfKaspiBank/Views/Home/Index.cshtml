@@ -1,8 +1,93 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Страница магазина";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="my-container">
+    <div class="block1">
+        
+        <div class="block1-in-box">
+            <img src="~/files/images/scale_1200.png" alt="error">
+            <h5>Продукт name</h5>
+            <div class="">
+                <p>Цена: <span>400тен</span></p>
+                <p>
+                    <button><i class="fas fa-plus"></i></button>
+                    <button><i class="fas fa-minus"></i></button>
+                    <span>1</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="block1-in-box">
+            <img src="~/files/images/scale_1200.png" alt="error">
+            <h5>Продукт name</h5>
+        </div>
+        <div class="block1-in-box">
+            <img src="~/files/images/scale_1200.png" alt="error">
+            <h5>Продукт name</h5>
+        </div>
+        <div class="block1-in-box">
+            <img src="~/files/images/scale_1200.png" alt="error">
+            <h5>Продукт name</h5>
+        </div>
+        <div class="block1-in-box">
+            <img src="~/files/images/scale_1200.png" alt="error">
+            <h5>Продукт name</h5>
+        </div>
+
+    </div>
+    <div class="block2">
+        <div class="block2-in-box1" >
+            <h2>Корзина</h2>
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Количество</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>15</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="block2-in-box1-footer">
+                <button type="button" class="btn btn-light">Оплатить</button>
+            </div>
+        </div>
+        <div class="block2-in-box2" style="display: none">
+            <h2>Оформить заказ</h2>
+            <div>
+                <div class="mb-3 ">
+                    <label for="address" class="form-label">Адрес</label>
+                    <input type="text" class="form-control" id="address" placeholder="Адрес доставки">
+                </div>
+                <div class="mb-3 ">
+                    <label for="CardNumber" class="form-label">Номер карты</label>
+                    <input type="text" class="form-control" id="CardNumber" placeholder="0000-0000-0000-0000">
+                </div>
+            </div>
+            <div class="block2-in-box1-footer">
+                <button type="button" class="btn btn-light">Оформить</button>
+            </div>
+        </div>
+    </div>
 </div>
