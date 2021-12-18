@@ -5,22 +5,30 @@
 
 <div class="my-container">
     <div class="block1">
-        @foreach (Product product in Model)
-        {
-            <div class="block1-in-box">
-                <img src="~/@product.PathImage" alt="error">
-                <h5>@product.Name</h5>
-                <div class="">
-                    <p>Цена: <span>@product.Price</span><span>Тенге</span></p>
-                    <p>
-                        <button><i class="fas fa-minus"></i></button>
-                        <button><i class="fas fa-plus"></i></button>
-                        <span>0</span>
-                    </p>
-                </div>
-            </div>
+        @{
+            if (Model != null && Model.Count > 0)
+            {
+                foreach (Product product in Model)
+                {
+                    <div class="block1-in-box">
+                        <img src="~/@product.PathImage" alt="error">
+                        <h5>@product.Name</h5>
+                        <div class="">
+                            <p>Цена: <span>@product.Price</span><span>Тенге</span></p>
+                            <p>
+                                <button><i class="fas fa-minus"></i></button>
+                                <button><i class="fas fa-plus"></i></button>
+                                <span>0</span>
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h2>Товар не найден</h2>
+            }
         }
-        
     </div>
     <div class="block2">
         <div class="block2-in-box1" >
@@ -52,3 +60,4 @@
         </div>
     </div>
 </div>
+
