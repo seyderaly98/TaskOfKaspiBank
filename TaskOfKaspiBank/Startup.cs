@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TaskOfKaspiBank.Models.Data;
 
 namespace TaskOfKaspiBank
 {
@@ -23,6 +25,8 @@ namespace TaskOfKaspiBank
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<TaskOfKaspiBankContext>(options => options.UseNpgsql(connection,o => o.SetPostgresVersion(9, 6)));
             services.AddControllersWithViews();
         }
 
