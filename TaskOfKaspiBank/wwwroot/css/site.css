@@ -92,6 +92,18 @@ body {
 .block1-in-box img{
   max-width: 100%;
 }
+.mng-btn-cursor
+{
+    cursor: pointer;
+}
+.mng-btn-cursor:hover
+{
+ color: #1b6ec2;
+}
+.label-white
+{
+  color: white;
+}
 
 
 /*  block2 

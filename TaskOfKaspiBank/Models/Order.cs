@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using TaskOfKaspiBank.Models.Enums;
 
 namespace TaskOfKaspiBank.Models
@@ -10,7 +12,7 @@ namespace TaskOfKaspiBank.Models
         /// <summary>
         /// Номер заказа
         /// </summary>
-        public Guid Number { get; } = new Guid();
+        public string Number { get; set; } =  Guid.NewGuid().ToString();
         /// <summary>
         /// Информация о продуктах
         /// </summary>
@@ -29,6 +31,13 @@ namespace TaskOfKaspiBank.Models
         /// </summary>
         public DateTime DateCreation { get; } = DateTime.Now;
 
+        /// <summary>
+        /// Общая стоимость заказа
+        /// </summary>
+        [NotMapped]
+        public decimal TotalCost => ProductsInformation.Sum(productInfo => productInfo.Product.Price * productInfo.Quantity);
+        
+
         #region Конструкторы
 
         public Order(){}
@@ -43,6 +52,7 @@ namespace TaskOfKaspiBank.Models
         }
 
         #endregion
+
         
     }
 }

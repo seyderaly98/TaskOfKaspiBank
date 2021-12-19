@@ -1,0 +1,37 @@
+﻿@model Order 
+
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Название</th>
+        <th scope="col">Количество</th>
+        <th scope="col">Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        if (Model?.ProductsInformation.Count > 0)
+        {
+            var count = 1;
+            foreach (var information in Model.ProductsInformation.OrderBy(p => p.DateCreation))
+            {
+                var price = information.Product.Price * information.Quantity;
+                <tr>
+                    <th scope="row">@count</th>
+                    <td>@information.Product.Name</td>
+                    <td>@information.Quantity</td>
+                    <td>@price</td>
+                </tr>
+                count++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" align="center">Корзина пуста</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>

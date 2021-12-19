@@ -1,0 +1,36 @@
+﻿@using TaskOfKaspiBank.Models.Enums
+@model Order
+
+<div>
+    <div class="block2-in-box1" id="basket">
+        <h2>Детали заказа</h2>
+        @if (Model.Address != null)
+        {
+            <div>
+                <div class="mb-3 ">
+                    <label for="address" class="form-label label-white">Адрес доставки</label>
+                    <input type="text" value="@Model.Address.Address" disabled class="form-control" id="address" placeholder="Адрес доставки">
+                </div>
+                <div class="mb-3 ">
+                    <label for="CardNumber" class="form-label label-white">Номер карты</label>
+                    <input type="text" value="@Model.Address.CarNumber" disabled class="form-control" id="CardNumber" placeholder="0000-0000-0000-0000">
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="block2-in-box2" id="placeOrder" >
+        <h2>Список товаров</h2>
+        <div class="order-table" id="order-table">
+            @{
+                await Html.RenderPartialAsync("Partial/OrderTablePartial",Model);
+            }
+        </div>
+            @if (Model.Status == OrderStatus.Paid)
+            {
+                <div class="block2-in-box1-footer">
+                    <button type="submit" class="btn btn-light">Выполнен</button>
+                </div>
+            }
+    </div>
+</div>

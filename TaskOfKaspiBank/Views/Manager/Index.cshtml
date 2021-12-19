@@ -1,0 +1,81 @@
+﻿@model List<Order>
+
+@{
+    ViewData["Title"] = "Страница менеджера";
+}
+
+<div class="manager my-container">
+    <div class="manager-block1">
+        @{
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Номер заказа</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Стоймость</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Детали</th>
+                </tr>
+                </thead>
+                <tbody>
+                @{
+                    if (Model != null && Model.Count > 0)
+                    {
+                        var count = 1;
+                        foreach (var order in Model)
+                        {
+                            <tr>
+                                <th scope="row">@count</th>
+                                <td><span>#</span>@order.Number.Substring(0, 13)</td>
+                                <td>@order.DateCreation.ToShortDateString()</td>
+                                <td>@order.TotalCost тенге</td>
+                                <td>@order.Status</td>
+                                <td><span onclick="OrderDetails('@order.Id')" class="mng-btn-cursor">Открыть</span></td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" align="center">Заказов нет </td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+    
+    <div class="manager-block2 block2" id="manager-block2">
+        
+    </div>
+    
+</div>
+
+@section Scripts
+{
+    <script >
+        function OrderDetails(orderId)
+        {
+            $.ajax(
+            {
+              url: '@Url.Action("OrderDetails", "Manager")',
+              type: 'GET',
+              data: {orderId},
+              success: function (data) 
+              {
+                  if (data.status === 500){
+                      alert('Ошибка') // TODO: Допишу если время останется                      
+                  }
+                  else if (data === false){
+                      alert('Перезагрузите страницу и повторите заново')
+                  }
+                  else{
+                      document.getElementById('manager-block2').innerHTML = data;
+                  }
+            }}) 
+        }
+    </script>
+}
