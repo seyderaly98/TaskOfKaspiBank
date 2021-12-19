@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model OrderAddress
 @{
     ViewData["Title"] = "Страница магазина";
 }
@@ -6,9 +6,9 @@
 <div class="my-container">
     <div class="block1">
         @{
-            if (Model != null && Model.Count > 0)
+            if (ViewBag.Products != null )
             {
-                foreach (Product product in Model)
+                foreach (Product product in ViewBag.Products)
                 {
                     <div class="block1-in-box">
                         <img src="~/@product.PathImage" alt="error">
@@ -42,26 +42,34 @@
         </div>
         <div class="block2-in-box2" id="placeOrder" style="display: none">
             <h2>Оформить заказ</h2>
-            <div>
-                <div class="mb-3 ">
-                    <label for="address" class="form-label">Адрес</label>
-                    <input type="text" class="form-control" id="address" placeholder="Адрес доставки">
+            <form asp-action="Index" asp-controller="Home" method="post">
+                <div>
+                    <div class="mb-3 ">
+                        <label asp-for="Address" class="form-label">Адрес</label>
+                        <input type="text" asp-for="Address" class="form-control" id="address" placeholder="Адрес доставки">
+                          <span asp-validation-for="Address"></span>
+                    </div>
+                    <div class="mb-3 ">
+                        <label asp-for="CarNumber" class="form-label">Номер карты</label>
+                        <input type="text" asp-for="CarNumber" class="form-control" id="CardNumber" placeholder="0000-0000-0000-0000">
+                        <span asp-validation-for="CarNumber"></span>
+                    </div>
                 </div>
-                <div class="mb-3 ">
-                    <label for="CardNumber" class="form-label">Номер карты</label>
-                    <input type="text" class="form-control" id="CardNumber" placeholder="0000-0000-0000-0000">
+                <div class="block2-in-box1-footer">
+                    <button type="button" class="btn btn-light" onclick="buttonPay(1)">Назад</button>
+                    <button type="submit" class="btn btn-light">Оформить</button>
                 </div>
-            </div>
-            <div class="block2-in-box1-footer">
-                 <button type="button" class="btn btn-light" onclick="buttonPay(1)">Назад</button>
-                 <button type="button" class="btn btn-light">Оформить</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
 @section Scripts
 {
+    @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    
     <script>
     
         function buttonPay(value)

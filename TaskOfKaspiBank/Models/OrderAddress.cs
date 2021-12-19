@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TaskOfKaspiBank.Models
 {
@@ -8,11 +9,13 @@ namespace TaskOfKaspiBank.Models
         /// <summary>
         /// Адрес  
         /// </summary>
+        [Required(ErrorMessage = "Это поле необходимо заполнить.")]
         public string Address { get; set; }
         /// <summary>
         /// Номер карты
         /// </summary>
-        public short CarNumber { get; set; }
+        [Required(ErrorMessage = "Это поле необходимо заполнить.")]
+        public string CarNumber { get; set; }
         /// <summary>
         /// Дата cоздания
         /// </summary>

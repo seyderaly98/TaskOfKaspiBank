@@ -112,5 +112,8 @@ body {
 .block2-in-box2 label{
   color: white;
 }
+.field-validation-error{
+  color: red;
+}
 
 

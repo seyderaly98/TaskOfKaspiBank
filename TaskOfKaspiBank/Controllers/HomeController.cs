@@ -39,9 +39,9 @@ namespace TaskOfKaspiBank.Controllers
             try
             {
                 var products = await _db.Products.Include(p => p.InformationOrderedProduct).ToListAsync();
-                if (products != null)
-                    ViewBag.Order = await _db.Orders.FirstOrDefaultAsync(o => o.Status == OrderStatus.Forming);
-                return View(products);
+                if (products != null) ViewBag.Order = await _db.Orders.FirstOrDefaultAsync(o => o.Status == OrderStatus.Forming);
+                ViewBag.Products = products;
+                return View();
             }
             catch (Exception e)
             {
@@ -53,17 +53,34 @@ namespace TaskOfKaspiBank.Controllers
             }
         }
 
-        
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        /// <summary>
+        /// Оформить заказ
+        /// </summary>
+        /// <param name="model">OrderAddress</param>
+        [HttpPost]
+        [ActionName("Index")]
+        public async Task<IActionResult> PlaceOrder(OrderAddress model)
         {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            try
+            {
+                if (!ModelState.IsValid) return View(model);
+                var order = await _db.Orders.FirstOrDefaultAsync(p => p.Status == OrderStatus.Forming);
+                order.Address = model;
+                order.Status = OrderStatus.Paid;
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+#if(DEBUG)
+                //TODO: Логирование 
+                Console.WriteLine(e);
+#endif
+                return StatusCode(500);
+            }
         }
         
-        #endregion
-
-        #region API
-
+        
         /// <summary>
         /// Добавить продукт в корзину
         /// </summary>
@@ -153,6 +170,12 @@ namespace TaskOfKaspiBank.Controllers
             
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        }
+        
         #endregion
 
     }
