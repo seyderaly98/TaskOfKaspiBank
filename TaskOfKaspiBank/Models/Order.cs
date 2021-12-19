@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Linq;
 using TaskOfKaspiBank.Models.Enums;
 
@@ -26,10 +27,11 @@ namespace TaskOfKaspiBank.Models
         /// Состояние  заказа 
         /// </summary>
         public OrderStatus Status { get; set; }
+        [NotMapped] public string StatusName => GetStatusName();
         /// <summary>
         /// Дата cоздания
         /// </summary>
-        public DateTime DateCreation { get; } = DateTime.Now;
+        public DateTime DateCreation => DateTime.Now;
 
         /// <summary>
         /// Общая стоимость заказа
@@ -53,6 +55,15 @@ namespace TaskOfKaspiBank.Models
 
         #endregion
 
-        
+        private string GetStatusName()
+        {
+            return Status switch
+            {
+                OrderStatus.Completed => "Выполнен",
+                OrderStatus.Forming => "Формируется",
+                OrderStatus.Paid => "Оплачен",
+                _ => "Склад"
+            };
+        }
     }
 }

@@ -30,7 +30,7 @@
                                 <td><span>#</span>@order.Number.Substring(0, 13)</td>
                                 <td>@order.DateCreation.ToShortDateString()</td>
                                 <td>@order.TotalCost тенге</td>
-                                <td id="mg-td-orderStatus-@order.Id">@order.Status</td>
+                                <td id="mg-td-orderStatus-@order.Id">@order.StatusName</td>
                                 <td><span onclick="OrderDetails('@order.Id')" class="mng-btn-cursor">Открыть</span></td>
                             </tr>
                             count++;

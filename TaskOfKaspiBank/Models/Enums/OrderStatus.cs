@@ -5,7 +5,10 @@
     /// </summary>
     public enum OrderStatus
     {
-        None = 0,
+        /// <summary>
+        /// Склад
+        /// </summary>
+        Warehouse = 0,
         /// <summary>
         /// Формируется (во время добавления товаров)
         /// </summary>
