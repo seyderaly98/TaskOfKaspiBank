@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using TaskOfKaspiBank.Models.Data;
+using TaskOfKaspiBank.Services;
 
 namespace TaskOfKaspiBank
 {
@@ -28,11 +31,13 @@ namespace TaskOfKaspiBank
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TaskOfKaspiBankContext>(options => options.UseNpgsql(connection,o => o.SetPostgresVersion(9, 6)).UseLazyLoadingProxies());
             services.AddControllersWithViews();
+            services.AddTransient<LogService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

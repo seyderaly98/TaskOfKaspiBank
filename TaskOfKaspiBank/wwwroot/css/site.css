@@ -104,6 +104,10 @@ body {
 {
   color: white;
 }
+.block2-in-box3 textarea{
+  font-size: 11px;
+  min-height: 170px;
+}
 
 
 /*  block2 

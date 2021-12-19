@@ -1,35 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using TaskOfKaspiBank.Models;
 using TaskOfKaspiBank.Models.Data;
 using TaskOfKaspiBank.Models.Enums;
+using TaskOfKaspiBank.Services;
 
 namespace TaskOfKaspiBank.Controllers
 {
     public class HomeController : Controller
     {
+        
         #region Поле и свойства
         
-        private readonly ILogger<HomeController> _logger;
         private TaskOfKaspiBankContext _db;
+        private LogService _log;
         
         #endregion
 
         #region Конструкторы
 
-        public HomeController(ILogger<HomeController> logger, TaskOfKaspiBankContext db)
+        public HomeController(TaskOfKaspiBankContext db, LogService log)
         {
-            _logger = logger;
             _db = db;
+            _log = log;
         }
-        
+
         #endregion
         
         #region Actions
@@ -68,6 +66,7 @@ namespace TaskOfKaspiBank.Controllers
                 order.Address = model;
                 order.Status = OrderStatus.Paid;
                 await _db.SaveChangesAsync();
+                _log.Logger(order.Id,$"Номер заказа #{order.Number.Substring(0, 13)}: cтатус = {order.StatusName}");
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -79,8 +78,7 @@ namespace TaskOfKaspiBank.Controllers
                 return StatusCode(500);
             }
         }
-        
-        
+
         /// <summary>
         /// Добавить продукт в корзину
         /// </summary>
@@ -97,6 +95,8 @@ namespace TaskOfKaspiBank.Controllers
                 {
                     order = new Order(productId);
                     await _db.Orders.AddAsync(order);
+                    var log = $"Создан новый заказ. Номер заказа #{order.Number.Substring(0, 13)}, cтатус = {order.StatusName}";
+                    _log.Logger(order.Id,log);
                 }
                 else
                 {
@@ -104,6 +104,8 @@ namespace TaskOfKaspiBank.Controllers
                     if (productInfo is null)
                         order.ProductsInformation.Add(new InformationOrderedProduct(productId, order.Id));
                     else productInfo.Quantity++;
+                    var log = $"Номер заказа #{order.Number.Substring(0, 13)}: Добавлен продукт, cтатус = {order.StatusName}";
+                    _log.Logger(order.Id,log);
                 }
                 await _db.SaveChangesAsync();
                 return Json(true);
@@ -135,6 +137,8 @@ namespace TaskOfKaspiBank.Controllers
                 if (productInfo.Quantity > 0) productInfo.Quantity--;
                 if (productInfo.Quantity == 0) _db.InformationOrderedProducts.Remove(productInfo);
                 await _db.SaveChangesAsync();
+                var log = $"Номер заказа #{order.Number.Substring(0, 13)}: Продукт '{productInfo.Product.Name}' удалено из корзины, cтатус = {order.StatusName}";
+                _log.Logger(order.Id,log);
                 return Json(true);
             }
             catch (Exception e)
@@ -169,14 +173,11 @@ namespace TaskOfKaspiBank.Controllers
             }
             
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
-        }
+        
         
         #endregion
+        
+       
 
     }
 }

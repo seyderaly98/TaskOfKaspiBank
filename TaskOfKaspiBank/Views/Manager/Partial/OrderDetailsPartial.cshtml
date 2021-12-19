@@ -26,11 +26,20 @@
                 await Html.RenderPartialAsync("Partial/OrderTablePartial",Model);
             }
         </div>
-            @if (Model.Status == OrderStatus.Paid)
-            {
-                <div class="block2-in-box1-footer" id="mng-btn-sendOrder">
-                    <button type="button" class="btn btn-light" onclick="SendOrder('@Model.Id')">Выполнен</button>
-                </div>
-            }
+        @if (Model.Status == OrderStatus.Paid)
+        {
+            <div class="block2-in-box1-footer" id="mng-btn-sendOrder">
+                <button type="button" class="btn btn-light" onclick="SendOrder('@Model.Id')">Выполнен</button>
+            </div>
+        }
     </div>
+    @if (ViewBag.LogData != null)
+    {
+        <div class="block2-in-box3" style="padding-top: 30px">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label label-white">История изменений</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@ViewBag.LogData</textarea>
+            </div>
+        </div>
+    }
 </div>
