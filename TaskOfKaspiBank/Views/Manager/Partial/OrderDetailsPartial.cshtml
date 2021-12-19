@@ -28,8 +28,8 @@
         </div>
             @if (Model.Status == OrderStatus.Paid)
             {
-                <div class="block2-in-box1-footer">
-                    <button type="submit" class="btn btn-light">Выполнен</button>
+                <div class="block2-in-box1-footer" id="mng-btn-sendOrder">
+                    <button type="button" class="btn btn-light" onclick="SendOrder('@Model.Id')">Выполнен</button>
                 </div>
             }
     </div>

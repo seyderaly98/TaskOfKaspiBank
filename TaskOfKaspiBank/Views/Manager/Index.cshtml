@@ -30,7 +30,7 @@
                                 <td><span>#</span>@order.Number.Substring(0, 13)</td>
                                 <td>@order.DateCreation.ToShortDateString()</td>
                                 <td>@order.TotalCost тенге</td>
-                                <td>@order.Status</td>
+                                <td id="mg-td-orderStatus-@order.Id">@order.Status</td>
                                 <td><span onclick="OrderDetails('@order.Id')" class="mng-btn-cursor">Открыть</span></td>
                             </tr>
                             count++;
@@ -66,16 +66,45 @@
               data: {orderId},
               success: function (data) 
               {
-                  if (data.status === 500){
+                  if (data.status === 500)
+                  {
                       alert('Ошибка') // TODO: Допишу если время останется                      
                   }
-                  else if (data === false){
+                  else if (data === false)
+                  {
                       alert('Перезагрузите страницу и повторите заново')
                   }
-                  else{
+                  else
+                  {
                       document.getElementById('manager-block2').innerHTML = data;
                   }
             }}) 
         }
+        
+        function SendOrder(orderId)
+        {
+            $.ajax(
+            {
+              url: '@Url.Action("SendOrder", "Manager")',
+              type: 'POST',
+              data: {orderId},
+              success: function (data) 
+              {
+                  if (data === true)
+                  {
+                      document.getElementById('mng-btn-sendOrder').remove();
+                      document.getElementById('mg-td-orderStatus-' + orderId).innerText = "Выполнен";
+                      alert('Выполнен');
+                  }
+                  else if (data === false)
+                  {
+                      alert('Перезагрузите страницу и повторите заново')
+                  }
+                  else{
+                     alert('Ошибка') // TODO: Допишу если время останется 
+                  }
+            }}) 
+        }
+                
     </script>
 }
