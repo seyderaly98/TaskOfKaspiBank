@@ -10,6 +10,7 @@ namespace TaskOfKaspiBank.Controllers
 {
     public class ManagerController : Controller
     {
+        
         #region Поле и свойства
         
         private TaskOfKaspiBankContext _db;
@@ -80,9 +81,6 @@ namespace TaskOfKaspiBank.Controllers
             }
         }
         #endregion
-        
-        
-      
         
     }
 }

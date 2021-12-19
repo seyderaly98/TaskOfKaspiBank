@@ -177,7 +177,5 @@ namespace TaskOfKaspiBank.Controllers
         
         #endregion
         
-       
-
     }
 }

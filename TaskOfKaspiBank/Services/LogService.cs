@@ -16,7 +16,7 @@ namespace TaskOfKaspiBank.Services
 
         public string GetLogData(string orderId)
         {
-            var filePath = Path.Combine(_environment.ContentRootPath,@$"wwwroot\log\orderChangeHistory\{orderId}.txt");
+            var filePath = Path.Combine(_environment.ContentRootPath,@$"wwwroot\logg\orderChangeHistory\{orderId}.txt");
             if (!System.IO.File.Exists(filePath)) return null;
             using var sr = new StreamReader(filePath, System.Text.Encoding.Default);
             return sr.ReadToEnd();
@@ -24,7 +24,7 @@ namespace TaskOfKaspiBank.Services
 
         public void Logger(string orderId,string logText)
         {
-            var directoryPath = Path.Combine(_environment.ContentRootPath,$"wwwroot/log/orderChangeHistory/");
+            var directoryPath = Path.Combine(_environment.ContentRootPath,$"wwwroot/logg/orderChangeHistory/");
             var filePath = Path.Combine(directoryPath, $"{orderId}.txt");
             if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
             using var file = new StreamWriter(filePath, true, Encoding.Default);

@@ -16,7 +16,7 @@
 
     <ItemGroup>
       <Folder Include="ViewModel" />
-      <Folder Include="wwwroot\log\orderChangeHistory" />
+      <Folder Include="wwwroot\logg\orderChangeHistory" />
     </ItemGroup>
 
 </Project>
